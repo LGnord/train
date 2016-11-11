@@ -18,6 +18,7 @@ public class Usa {
 	public City winnipeg = new City("Winnipeg");
 	public City denver = new City("Denver");
 	public City omaha = new City("Omaha");
+	public City duluth = new City("Duluth");
 
 	List<City> cities;
 
@@ -36,11 +37,17 @@ public class Usa {
 		new Road(helena, saltLakeCity, 3, Color.PINK);
 		new Road(helena, denver, 4, Color.GREEN);
 		new Road(helena, omaha, 5, Color.RED);
+		new Road(helena, duluth, 6, Color.ORANGE);
 
 		new Road(saltLakeCity, denver, 3, Color.RED, Color.YELLOW);
 
 		new Road(denver, omaha, 4, Color.PINK);
 
+		new Road(portLand, saltLakeCity, 6, Color.BLUE);
+
+		new Road(winnipeg, duluth, 4, Color.BLACK);
+
+		new Road(duluth, omaha, 2, Color.GRAY, Color.GRAY);
 	}
 
 }

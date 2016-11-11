@@ -38,6 +38,26 @@ public class LongestPathTest {
 		lp = new Path(usa.calgary, usa.helena, usa.denver, usa.omaha);
 		expected.add(lp);
 
+		lp = new Path(usa.calgary, usa.vancouver, usa.seattle, usa.portLand, usa.saltLakeCity);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.winnipeg, usa.duluth);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.duluth);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.winnipeg, usa.duluth, usa.omaha);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.omaha, usa.duluth);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.duluth, usa.omaha);
+		expected.add(lp);
+
+		Assert.assertEquals(expected.size(), actual.size());
+
 		Assert.assertEquals(expected, actual);
 	}
 
