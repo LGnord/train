@@ -1,6 +1,7 @@
 package train.strategy;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -11,7 +12,7 @@ import train.map.Usa;
 public class LongestPathTest {
 
 	@Test
-	public void ensure_longest_path_from_calgary() {
+	public void ensure_longest_path_10_12_from_calgary() {
 		LongestPathStrategy longestPath = new LongestPathStrategy();
 		Usa usa = new Usa();
 		Set<Path> actual = longestPath.run(usa.calgary, 10, 12);
@@ -56,9 +57,43 @@ public class LongestPathTest {
 		lp = new Path(usa.calgary, usa.helena, usa.duluth, usa.omaha);
 		expected.add(lp);
 
+		lp = new Path(usa.calgary, usa.vancouver, usa.seattle, usa.portLand, usa.sanFrancisco);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.omaha, usa.kansasCity);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.denver, usa.kansasCity);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.saltLakeCity, usa.lasVegas);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.helena, usa.saltLakeCity, usa.lasVegas, usa.sanFrancisco);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.vancouver, usa.seattle, usa.portLand, usa.sanFrancisco, usa.lasVegas);
+		expected.add(lp);
+
+		lp = new Path(usa.calgary, usa.winnipeg, usa.saultStMarie);
+		expected.add(lp);
+
 		Assert.assertEquals(expected.size(), actual.size());
 
 		Assert.assertEquals(expected, actual);
 	}
 
+	@Test
+	public void ensure_longest_path_45_from_calgary() {
+		LongestPathStrategy longestPath = new LongestPathStrategy();
+		Usa usa = new Usa();
+		longestPath.run(usa.calgary, 45, 45);
+
+		List<Path> actual = longestPath.getOrderedByPoints();
+
+		System.out.println(actual.get(0));
+
+		Assert.assertEquals(2813, actual.size());
+		Assert.assertEquals(105, actual.get(0).getPoints());
+	}
 }

@@ -1,6 +1,7 @@
 package train.strategy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,9 +11,18 @@ import train.model.Road;
 
 public class LongestPathStrategy {
 
+	Set<Path> longestPaths;
+
 	public Set<Path> run(City from, int minGoal, int maxGoal) {
-		Set<Path> res = new HashSet<>();
-		run(from, from, minGoal, maxGoal, 0, new ArrayList<Road>(), new HashSet<Road>(), res);
+		longestPaths = new HashSet<>();
+		run(from, from, minGoal, maxGoal, 0, new ArrayList<Road>(), new HashSet<Road>(), longestPaths);
+		return longestPaths;
+	}
+
+	public List<Path> getOrderedByPoints() {
+		List<Path> res = new ArrayList<>();
+		res.addAll(longestPaths);
+		Collections.sort(res);
 		return res;
 	}
 

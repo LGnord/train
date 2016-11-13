@@ -1,18 +1,18 @@
 package train.model;
 
-public class Road {
+public class Road implements Comparable<Road> {
 
 	private final City from;
 	private final City to;
 	private final Color[] colors;
-	private final int lenght;
+	private final RoadScore score;
 
-	public Road(City from, City to, int lenght, Color... colors) {
+	public Road(City from, City to, RoadScore score, Color... colors) {
 		super();
 		this.from = from;
 		this.to = to;
 		this.colors = colors;
-		this.lenght = lenght;
+		this.score = score;
 		from.addRoad(this);
 		to.addRoad(this);
 	}
@@ -22,7 +22,11 @@ public class Road {
 	}
 
 	public int getLenght() {
-		return lenght;
+		return score.lenght;
+	}
+
+	public int getPoints() {
+		return score.points;
 	}
 
 	public City getOther(City from) {
@@ -39,6 +43,11 @@ public class Road {
 
 	public City getSource() {
 		return from;
+	}
+
+	@Override
+	public int compareTo(Road other) {
+		return this.toString().compareTo(other.toString());
 	}
 
 }

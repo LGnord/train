@@ -1,22 +1,42 @@
 package train.strategy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import train.model.City;
 import train.model.Road;
 
-public class Path {
+public class Path implements Comparable<Path> {
 
 	private final City from;
 	private final City to;
 	private final List<Road> roads;
+	private final List<Road> orderRoads;
+	private final int points;
 
 	public Path(City from, List<Road> roads) {
 		super();
 		this.roads = roads;
 		this.from = from;
 		this.to = roads.get(roads.size() - 1).getDestination();
+		this.orderRoads = orderRoads(roads);
+		points = points(roads);
+	}
+
+	private int points(List<Road> roads) {
+		int points = 0;
+		for (Road r : roads) {
+			points += r.getPoints();
+		}
+		return points;
+	}
+
+	private List<Road> orderRoads(List<Road> roads) {
+		List<Road> res = new ArrayList<Road>();
+		res.addAll(roads);
+		Collections.sort(res);
+		return res;
 	}
 
 	public Path(City... cities) {
@@ -31,19 +51,25 @@ public class Path {
 		return roads;
 	}
 
+	public int getPoints() {
+		return points;
+	}
+
+	@Override
+	public int compareTo(Path o) {
+		return o.points - points;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer(from.toString());
 		City current = from;
 		for (Road r : roads) {
 			buffer.append("->");
-			if (r.getSource().equals(current)) {
-				current = r.getDestination();
-			} else {
-				current = r.getSource();
-			}
+			current = r.getOther(current);
 			buffer.append(current);
 		}
+		buffer.append("(" + points + "p)");
 		return buffer.toString();
 	}
 
@@ -51,9 +77,7 @@ public class Path {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((from == null) ? 0 : from.hashCode());
-		result = prime * result + ((roads == null) ? 0 : roads.hashCode());
-		result = prime * result + ((to == null) ? 0 : to.hashCode());
+		result = prime * result + ((orderRoads == null) ? 0 : orderRoads.hashCode());
 		return result;
 	}
 
@@ -66,20 +90,10 @@ public class Path {
 		if (getClass() != obj.getClass())
 			return false;
 		Path other = (Path) obj;
-		if (from == null) {
-			if (other.from != null)
+		if (orderRoads == null) {
+			if (other.orderRoads != null)
 				return false;
-		} else if (!from.equals(other.from))
-			return false;
-		if (roads == null) {
-			if (other.roads != null)
-				return false;
-		} else if (!roads.equals(other.roads))
-			return false;
-		if (to == null) {
-			if (other.to != null)
-				return false;
-		} else if (!to.equals(other.to))
+		} else if (!orderRoads.equals(other.orderRoads))
 			return false;
 		return true;
 	}
