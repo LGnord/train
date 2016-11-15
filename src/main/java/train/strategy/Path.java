@@ -19,9 +19,22 @@ public class Path implements Comparable<Path> {
 		super();
 		this.roads = roads;
 		this.from = from;
-		this.to = roads.get(roads.size() - 1).getDestination();
 		this.orderRoads = orderRoads(roads);
 		points = points(roads);
+		this.to = checkRoads();
+	}
+
+	public City getDestination() {
+		return to;
+	}
+
+	private City checkRoads() {
+		City current = from;
+		for (Road r : roads) {
+			assert current.equals(r.getSource()) || current.equals(r.getDestination()) : this.toString();
+			current = r.getOther(current);
+		}
+		return current;
 	}
 
 	private int points(List<Road> roads) {
@@ -53,6 +66,18 @@ public class Path implements Comparable<Path> {
 
 	public int getPoints() {
 		return points;
+	}
+
+	public int getLenght() {
+		int lenght = 0;
+		for (Road r : roads) {
+			lenght += r.getLenght();
+		}
+		return lenght;
+	}
+
+	public List<Road> getRoads() {
+		return roads;
 	}
 
 	@Override

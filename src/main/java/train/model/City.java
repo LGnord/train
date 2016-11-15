@@ -30,7 +30,7 @@ public class City {
 		throw new IllegalArgumentException("No road from " + this + " to " + city);
 	}
 
-	public Set<Road> getPaths() {
+	public Set<Road> getRoads() {
 		return roads;
 	}
 

@@ -50,4 +50,21 @@ public class Road implements Comparable<Road> {
 		return this.toString().compareTo(other.toString());
 	}
 
+	public boolean match(Color c) {
+		for (Color myC : colors) {
+			if (myC.equals(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isDepth(int depth) {
+		return colors.length == depth;
+	}
+
+	public boolean isLenght(int lenght) {
+		return score.lenght == lenght;
+	}
+
 }
