@@ -289,9 +289,8 @@ public class LongestPathTest {
 	public void ensure_longest_path_45_from_calgary() {
 		LongestPathStrategy longestPath = new LongestPathStrategy();
 		Usa usa = new Usa();
-		longestPath.run(usa.calgary, 45, 45, 80);
 
-		List<Path> actual = longestPath.getOrderedByPoints();
+		List<Path> actual = longestPath.getOrderedByPoints(longestPath.run(usa.calgary, 45, 45, 80));
 
 		System.out.println(actual.get(0));
 		System.out.println(actual.get(37_000));

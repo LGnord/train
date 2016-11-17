@@ -1,8 +1,15 @@
 package train.map;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import train.model.City;
 import train.model.Color;
 
 public class UsaTest {
@@ -68,6 +75,25 @@ public class UsaTest {
 	public void ensure_number_of_l5_roads() {
 		Usa usa = new Usa();
 		Assert.assertEquals(7, usa.getRoadsByLenght(5).size());
+	}
+
+	@Test
+	public void ensure_all_id_are_distinct() {
+		Usa usa = new Usa();
+		List<String> ids = new ArrayList<>();
+		for (City city : usa.getCities()) {
+			ids.add(city.geId());
+		}
+		Collections.sort(ids);
+		Set<String> removeDuplicate = new HashSet<>();
+		removeDuplicate.addAll(ids);
+		Assert.assertEquals(ids.toString(), removeDuplicate.size(), ids.size());
+	}
+
+	@Test
+	public void ensure_get_santa_fe_by_id() {
+		Usa usa = new Usa();
+		Assert.assertEquals(usa.santaFe, usa.getCity("Sfe"));
 	}
 
 }

@@ -62,6 +62,15 @@ public class Usa {
 		return res;
 	}
 
+	public City getCity(String id) {
+		for (City city : cities) {
+			if (city.geId().equals(id.toUpperCase())) {
+				return city;
+			}
+		}
+		return null;
+	}
+
 	public Set<Road> getRoadsByColor(Color c) {
 		Set<Road> res = new HashSet<>();
 		for (Road r : getRoads()) {
