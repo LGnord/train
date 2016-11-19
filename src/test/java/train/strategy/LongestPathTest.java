@@ -7,13 +7,15 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
+import train.longest_path.LongestPathHelper;
+import train.longest_path.Path;
 import train.map.Usa;
 
 public class LongestPathTest {
 
 	@Test
 	public void ensure_longest_path_10_12_from_calgary() {
-		LongestPathStrategy longestPath = new LongestPathStrategy();
+		LongestPathHelper longestPath = new LongestPathHelper();
 		Usa usa = new Usa();
 		Set<Path> actual = longestPath.run(usa.calgary, 10, 12, 0);
 		Set<Path> expected = new HashSet<>();
@@ -112,7 +114,7 @@ public class LongestPathTest {
 
 	@Test
 	public void ensure_longest_path_6_8_from_dallas() {
-		LongestPathStrategy longestPath = new LongestPathStrategy();
+		LongestPathHelper longestPath = new LongestPathHelper();
 		Usa usa = new Usa();
 		Set<Path> actual = longestPath.run(usa.dallas, 6, 8, 0);
 		Set<Path> expected = new HashSet<>();
@@ -287,7 +289,7 @@ public class LongestPathTest {
 
 	@Test
 	public void ensure_longest_path_45_from_calgary() {
-		LongestPathStrategy longestPath = new LongestPathStrategy();
+		LongestPathHelper longestPath = new LongestPathHelper();
 		Usa usa = new Usa();
 
 		List<Path> actual = longestPath.getOrderedByPoints(longestPath.run(usa.calgary, 45, 45, 80));

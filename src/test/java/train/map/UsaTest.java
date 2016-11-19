@@ -82,7 +82,7 @@ public class UsaTest {
 		Usa usa = new Usa();
 		List<String> ids = new ArrayList<>();
 		for (City city : usa.getCities()) {
-			ids.add(city.geId());
+			ids.add(city.getId());
 		}
 		Collections.sort(ids);
 		Set<String> removeDuplicate = new HashSet<>();

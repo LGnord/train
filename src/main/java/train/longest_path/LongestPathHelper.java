@@ -1,4 +1,4 @@
-package train.strategy;
+package train.longest_path;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,12 +13,12 @@ import train.map.Usa;
 import train.model.City;
 import train.model.Road;
 
-public class LongestPathStrategy {
+public class LongestPathHelper {
 
 	Cache cache = new Cache();
 	final int[] maxPointsByTrain;
 
-	public LongestPathStrategy() {
+	public LongestPathHelper() {
 		maxPointsByTrain = new int[46];
 		maxPointsByTrain[0] = 0;
 		maxPointsByTrain[1] = 1;
@@ -33,9 +33,9 @@ public class LongestPathStrategy {
 		System.out.println(Arrays.toString(maxPointsByTrain));
 	}
 
-	public Set<Path> run(int minGoal, int maxGoal, int minPoints) {
+	public Set<Path> run(int minGoal, int maxGoal, int minPoints, Usa usa) {
 		Set<Path> longestPaths = new HashSet<>();
-		for (City city : new Usa().getCities())
+		for (City city : usa.getCities())
 			run(city, city, minGoal, maxGoal, 0, 0, new ArrayList<Road>(), new HashSet<Road>(), longestPaths, minPoints,
 					true);
 		return longestPaths;
@@ -68,7 +68,9 @@ public class LongestPathStrategy {
 				res.add(path);
 			}
 			if (res.size() % 1_000 == 0) {
-				System.out.println("Res contains " + res.size() + " elements. " + nbPrune + " paths have been pruned.");
+				System.out.print("Res contains " + res.size() + " elements.");
+				System.out.print(" " + nbPrune + " paths have been pruned.");
+				System.out.println(" " + cache.size + " paths have been cached.");
 			}
 		}
 
@@ -133,7 +135,8 @@ public class LongestPathStrategy {
 	}
 
 	class Cache {
-		int CACHE_LENGHT = 6;
+		int CACHE_LENGHT = 10;
+		int size = 0;
 
 		Map<City, Set<Path>[]> cache = new HashMap<>();
 
@@ -150,6 +153,7 @@ public class LongestPathStrategy {
 				paths = new HashSet<>();
 				run(city, city, lenght, lenght, 0, 0, new ArrayList<Road>(), new HashSet<Road>(), paths, 0, false);
 				array[lenght - 1] = paths;
+				size++;
 			}
 			return paths;
 		}

@@ -1,10 +1,14 @@
-package train.strategy;
+package train.longest_path;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import train.map.Usa;
 import train.model.City;
+import train.model.Mission;
 import train.model.Road;
 
 public class Path implements Comparable<Path> {
@@ -13,6 +17,7 @@ public class Path implements Comparable<Path> {
 	private final City to;
 	private final List<Road> roads;
 	private final List<Road> orderRoads;
+	private final Set<City> cities;
 	private final int points;
 
 	public Path(City from, List<Road> roads) {
@@ -22,6 +27,16 @@ public class Path implements Comparable<Path> {
 		this.orderRoads = orderRoads(roads);
 		points = points(roads);
 		this.to = checkRoads();
+		this.cities = cities();
+	}
+
+	private Set<City> cities() {
+		Set<City> cities = new HashSet<>();
+		for (Road r : roads) {
+			cities.add(r.getDestination());
+			cities.add(r.getSource());
+		}
+		return cities;
 	}
 
 	public City getDestination() {
@@ -85,6 +100,30 @@ public class Path implements Comparable<Path> {
 		return o.points - points;
 	}
 
+	public boolean contains(Mission... missions) {
+		for (Mission mission : missions) {
+			if (!contains(mission.getFrom()) || !contains(mission.getTo())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean contains(City city) {
+		return cities.contains(city);
+	}
+
+	public String toFileString() {
+		StringBuffer buffer = new StringBuffer(from.getId());
+		City current = from;
+		for (Road r : roads) {
+			buffer.append("-");
+			current = r.getOther(current);
+			buffer.append(current.getId());
+		}
+		return buffer.toString();
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer(from.toString());
@@ -94,8 +133,9 @@ public class Path implements Comparable<Path> {
 			current = r.getOther(current);
 			buffer.append(current);
 		}
-		buffer.append("(" + points + "p)");
+		buffer.append("(" + points + "p;" + getLenght() + "l)");
 		return buffer.toString();
+
 	}
 
 	@Override
@@ -121,6 +161,15 @@ public class Path implements Comparable<Path> {
 		} else if (!orderRoads.equals(other.orderRoads))
 			return false;
 		return true;
+	}
+
+	public static Path parsePath(String line, Usa usa) {
+		String[] cityString = line.split("-");
+		City[] cities = new City[cityString.length];
+		for (int i = 0; i < cities.length; i++) {
+			cities[i] = usa.getCity(cityString[i]);
+		}
+		return new Path(cities);
 	}
 
 }

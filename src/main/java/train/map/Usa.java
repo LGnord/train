@@ -6,6 +6,7 @@ import java.util.Set;
 
 import train.model.City;
 import train.model.Color;
+import train.model.Mission;
 import train.model.Road;
 import train.model.RoadScore;
 
@@ -54,6 +55,40 @@ public class Usa {
 		return cities;
 	}
 
+	public Mission sea_nyo = new Mission(seattle, newYork, 22);
+	public Mission lan_nyo = new Mission(losAngeles, newYork, 21);
+	public Mission van_mon = new Mission(vancouver, montreal, 20);
+	public Mission lan_mia = new Mission(losAngeles, miami, 20);
+	public Mission por_nah = new Mission(portLand, nashVille, 17);
+	public Mission san_atl = new Mission(sanFrancisco, atlanta, 17);
+	public Mission lan_chi = new Mission(losAngeles, chicaco, 16);
+	public Mission mon_nyo = new Mission(montreal, newYork, 13);
+	public Mission van_san = new Mission(vancouver, santaFe, 13);
+	public Mission cal_pho = new Mission(calgary, phoenix, 13);
+	public Mission mon_nor = new Mission(montreal, newOrleans, 13);
+	public Mission bos_mia = new Mission(boston, miami, 12);
+	public Mission dal_nyo = new Mission(dallas, newYork, 11);
+	public Mission den_pit = new Mission(denver, pitsburg, 11);
+	public Mission por_phe = new Mission(portLand, phoenix, 11);
+	public Mission win_lro = new Mission(winnipeg, littleRock, 11);
+	public Mission dul_elp = new Mission(duluth, elPaso, 10);
+	public Mission sea_lan = new Mission(seattle, losAngeles, 9);
+	public Mission chi_san = new Mission(chicaco, santaFe, 9);
+	public Mission mon_atl = new Mission(montreal, atlanta, 9);
+	public Mission sal_okl = new Mission(saultStMarie, oklahomaCity, 9);
+	public Mission hel_lan = new Mission(helena, losAngeles, 8);
+	public Mission dul_hou = new Mission(duluth, houston, 8);
+	public Mission chi_nor = new Mission(chicaco, newOrleans, 7);
+	public Mission cal_sea = new Mission(calgary, seattle, 7);
+	public Mission nyo_atl = new Mission(newYork, atlanta, 6);
+	public Mission den_elp = new Mission(denver, elPaso, 4);
+
+	private Set<Mission> missions;
+
+	public Set<Mission> getMissions() {
+		return missions;
+	}
+
 	public Set<Road> getRoads() {
 		Set<Road> res = new HashSet<>();
 		for (City c : cities) {
@@ -64,7 +99,7 @@ public class Usa {
 
 	public City getCity(String id) {
 		for (City city : cities) {
-			if (city.geId().equals(id.toUpperCase())) {
+			if (city.getId().equals(id.toUpperCase())) {
 				return city;
 			}
 		}
@@ -116,6 +151,8 @@ public class Usa {
 				littleRock, newOrleans, nashVille, //
 				atlanta, miami, charleston, //
 				raleign, washington, saintLouis));
+
+		missions = Mission.ALL;
 
 		new Road(vancouver, calgary, RoadScore.THREE, Color.GRAY);
 		new Road(vancouver, seattle, RoadScore.ONE, Color.GRAY, Color.GRAY);

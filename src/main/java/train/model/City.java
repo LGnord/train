@@ -34,7 +34,7 @@ public class City {
 		return name;
 	}
 
-	public String geId() {
+	public String getId() {
 		return id;
 	}
 

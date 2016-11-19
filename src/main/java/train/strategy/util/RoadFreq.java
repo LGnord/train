@@ -1,4 +1,4 @@
-package train.strategy;
+package train.strategy.util;
 
 import train.model.Road;
 

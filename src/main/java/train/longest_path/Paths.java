@@ -1,4 +1,4 @@
-package train.strategy;
+package train.longest_path;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,13 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import train.model.Mission;
 import train.model.Road;
+import train.strategy.util.RoadFreq;
 
-public class PathStatistic {
+public class Paths {
 
 	final List<Path> paths;
 
-	public PathStatistic(List<Path> paths) {
+	public Paths(List<Path> paths) {
 		super();
 		this.paths = paths;
 	}
@@ -33,6 +35,21 @@ public class PathStatistic {
 		}
 		Collections.sort(res);
 		return res;
+	}
+
+	public Strategy prepareStrategy(int qte, Mission... missions) {
+		int nb = 0;
+		List<Path> res = new ArrayList<>();
+		for (Path path : paths) {
+			if (path.contains(missions)) {
+				res.add(path);
+				nb++;
+				if (nb == qte) {
+					return new Strategy(res, missions);
+				}
+			}
+		}
+		return new Strategy(res, missions);
 	}
 
 }
