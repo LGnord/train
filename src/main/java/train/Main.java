@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,11 +38,28 @@ public class Main {
 		}
 		Paths longestPaths = new Paths(paths);
 
-		Mission[] missions = readMissionFromKeyboard();
+		try (Scanner keybordScanner = new Scanner(System.in);) {
+			Mission[] missions = readMissionFromKeyboard(keybordScanner);
 
-		Strategy strategy = longestPaths.prepareStrategy(20, missions);
-		System.out.println(strategy.prettyPrint());
+			List<Strategy> strategies = longestPaths.prepareStrategies(100, missions);
+			int pos = 1;
+			for (Strategy s : strategies) {
+				System.out.println(pos + ". " + Arrays.toString(s.getMissions()) + " -> " + s.explainEsperance());
+				pos++;
+			}
+			int strategyIndex = readIndexFromKeyboard(keybordScanner);
+			System.out.println(strategies.get(strategyIndex).prettyPrint());
+		}
+	}
 
+	private int readIndexFromKeyboard(Scanner keybordScanner) {
+		int index = 1;
+
+		System.out.println("Strategy :");
+		String str = keybordScanner.next();
+		index = Integer.parseInt(str);
+
+		return index - 1;
 	}
 
 	private void writeToFile(int minGoal, int maxGoal, int minPoints, List<Path> paths) {
@@ -81,14 +99,14 @@ public class Main {
 		return paths;
 	}
 
-	private Mission[] readMissionFromKeyboard() {
-		Mission[] missions = new Mission[2];
-		try (Scanner sc = new Scanner(System.in);) {
-			for (int i = 0; i < 2; i++) {
+	private Mission[] readMissionFromKeyboard(Scanner keybordScanner) {
+		Mission[] missions = new Mission[3];
+		try {
+			for (int i = 0; i < missions.length; i++) {
 				while (missions[i] == null) {
 
 					System.out.println("Mission :");
-					String str = sc.next();
+					String str = keybordScanner.next();
 					System.out.println("Vous avez saisi : " + str);
 					try {
 						missions[i] = Mission.parseMission(str, usa);

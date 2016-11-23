@@ -45,6 +45,10 @@ public class Mission {
 		return from;
 	}
 
+	public int getPoints() {
+		return points;
+	}
+
 	@Override
 	public String toString() {
 		return from + "->" + to + "(" + points + "p)";
