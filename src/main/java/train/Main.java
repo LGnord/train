@@ -53,13 +53,18 @@ public class Main {
 	}
 
 	private int readIndexFromKeyboard(Scanner keybordScanner) {
-		int index = 1;
+		try {
+			int index = 1;
 
-		System.out.println("Strategy :");
-		String str = keybordScanner.next();
-		index = Integer.parseInt(str);
+			System.out.println("Strategy :");
+			String str = keybordScanner.next();
+			index = Integer.parseInt(str);
 
-		return index - 1;
+			return index - 1;
+		} catch (NumberFormatException e) {
+			System.err.println(e.getMessage());
+			return readIndexFromKeyboard(keybordScanner);
+		}
 	}
 
 	private void writeToFile(int minGoal, int maxGoal, int minPoints, List<Path> paths) {
@@ -104,7 +109,6 @@ public class Main {
 		try {
 			for (int i = 0; i < missions.length; i++) {
 				while (missions[i] == null) {
-
 					System.out.println("Mission :");
 					String str = keybordScanner.next();
 					System.out.println("Vous avez saisi : " + str);
@@ -113,7 +117,11 @@ public class Main {
 					} catch (IllegalArgumentException e) {
 						System.err.println(e.getMessage());
 					}
-					System.out.println("Vous avez saisi : " + missions[i]);
+					if (missions[i] != null) {
+						System.out.println("Vous avez saisi : " + missions[i]);
+					} else {
+						System.out.println("Voulez-vous dire : " + Mission.lookLikeMission(str, usa));
+					}
 
 				}
 			}

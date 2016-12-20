@@ -16,7 +16,7 @@ public class Usa {
 	public City seattle = new City("Seattle");
 	public City calgary = new City("Calgary");
 	public City helena = new City("Helena");
-	public City portLand = new City("Port-land");
+	public City portLand = new City("Portland");
 	public City saltLakeCity = new City("Salt Lake City");
 	public City winnipeg = new City("Winnipeg");
 	public City denver = new City("Denver");
@@ -77,11 +77,14 @@ public class Usa {
 	public Mission chi_san = new Mission(chicaco, santaFe, 9);
 	public Mission mon_atl = new Mission(montreal, atlanta, 9);
 	public Mission sal_okl = new Mission(saultStMarie, oklahomaCity, 9);
+	// A valider
+	public Mission sal_nas = new Mission(saultStMarie, nashVille, 9);
 	public Mission hel_lan = new Mission(helena, losAngeles, 8);
 	public Mission dul_hou = new Mission(duluth, houston, 8);
 	public Mission chi_nor = new Mission(chicaco, newOrleans, 7);
-	public Mission cal_sea = new Mission(calgary, seattle, 7);
+	public Mission cal_slc = new Mission(calgary, saltLakeCity, 7);
 	public Mission nyo_atl = new Mission(newYork, atlanta, 6);
+	public Mission kcy_hou = new Mission(kansasCity, houston, 5);
 	public Mission den_elp = new Mission(denver, elPaso, 4);
 
 	private Set<Mission> missions;
