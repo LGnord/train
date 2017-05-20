@@ -67,6 +67,7 @@ public class Usa {
 	public Mission cal_pho = new Mission(calgary, phoenix, 13);
 	public Mission mon_nor = new Mission(montreal, newOrleans, 13);
 	public Mission bos_mia = new Mission(boston, miami, 12);
+	public Mission tor_mia = new Mission(toronto, miami, 12);
 	public Mission win_hou = new Mission(winnipeg, houston, 12);
 	public Mission dal_nyo = new Mission(dallas, newYork, 11);
 	public Mission den_pit = new Mission(denver, pitsburg, 11);
