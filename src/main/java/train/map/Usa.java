@@ -55,38 +55,38 @@ public class Usa {
 		return cities;
 	}
 
-	public Mission sea_nyo = new Mission(seattle, newYork, 22);
-	public Mission lan_nyo = new Mission(losAngeles, newYork, 21);
-	public Mission van_mon = new Mission(vancouver, montreal, 20);
-	public Mission lan_mia = new Mission(losAngeles, miami, 20);
-	public Mission por_nah = new Mission(portLand, nashVille, 17);
-	public Mission san_atl = new Mission(sanFrancisco, atlanta, 17);
-	public Mission lan_chi = new Mission(losAngeles, chicaco, 16);
-	public Mission mon_nyo = new Mission(montreal, newYork, 13);
-	public Mission van_san = new Mission(vancouver, santaFe, 13);
-	public Mission cal_pho = new Mission(calgary, phoenix, 13);
-	public Mission mon_nor = new Mission(montreal, newOrleans, 13);
-	public Mission bos_mia = new Mission(boston, miami, 12);
-	public Mission tor_mia = new Mission(toronto, miami, 12);
-	public Mission win_hou = new Mission(winnipeg, houston, 12);
-	public Mission dal_nyo = new Mission(dallas, newYork, 11);
-	public Mission den_pit = new Mission(denver, pitsburg, 11);
-	public Mission por_phe = new Mission(portLand, phoenix, 11);
-	public Mission win_lro = new Mission(winnipeg, littleRock, 11);
-	public Mission dul_elp = new Mission(duluth, elPaso, 10);
-	public Mission sea_lan = new Mission(seattle, losAngeles, 9);
-	public Mission chi_san = new Mission(chicaco, santaFe, 9);
-	public Mission mon_atl = new Mission(montreal, atlanta, 9);
-	public Mission sal_okl = new Mission(saultStMarie, oklahomaCity, 9);
+	public Mission sea_nyo = new Mission(1, seattle, newYork, 22);
+	public Mission lan_nyo = new Mission(2, losAngeles, newYork, 21);
+	public Mission van_mon = new Mission(3, vancouver, montreal, 20);
+	public Mission lan_mia = new Mission(4, losAngeles, miami, 20);
+	public Mission por_nah = new Mission(5, portLand, nashVille, 17);
+	public Mission san_atl = new Mission(6, sanFrancisco, atlanta, 17);
+	public Mission lan_chi = new Mission(7, losAngeles, chicaco, 16);
+	public Mission mon_nyo = new Mission(8, montreal, newYork, 13);
+	public Mission van_san = new Mission(9, vancouver, santaFe, 13);
+	public Mission cal_pho = new Mission(10, calgary, phoenix, 13);
+	public Mission mon_nor = new Mission(11, montreal, newOrleans, 13);
+	public Mission bos_mia = new Mission(12, boston, miami, 12);
+	public Mission tor_mia = new Mission(13, toronto, miami, 12);
+	public Mission win_hou = new Mission(14, winnipeg, houston, 12);
+	public Mission dal_nyo = new Mission(15, dallas, newYork, 11);
+	public Mission den_pit = new Mission(16, denver, pitsburg, 11);
+	public Mission por_phe = new Mission(17, portLand, phoenix, 11);
+	public Mission win_lro = new Mission(18, winnipeg, littleRock, 11);
+	public Mission dul_elp = new Mission(19, duluth, elPaso, 10);
+	public Mission sea_lan = new Mission(20, seattle, losAngeles, 9);
+	public Mission chi_san = new Mission(21, chicaco, santaFe, 9);
+	public Mission mon_atl = new Mission(22, montreal, atlanta, 9);
+	public Mission sal_okl = new Mission(23, saultStMarie, oklahomaCity, 9);
 	// A valider
-	public Mission sal_nas = new Mission(saultStMarie, nashVille, 9);
-	public Mission hel_lan = new Mission(helena, losAngeles, 8);
-	public Mission dul_hou = new Mission(duluth, houston, 8);
-	public Mission chi_nor = new Mission(chicaco, newOrleans, 7);
-	public Mission cal_slc = new Mission(calgary, saltLakeCity, 7);
-	public Mission nyo_atl = new Mission(newYork, atlanta, 6);
-	public Mission kcy_hou = new Mission(kansasCity, houston, 5);
-	public Mission den_elp = new Mission(denver, elPaso, 4);
+	public Mission sal_nas = new Mission(24, saultStMarie, nashVille, 9);
+	public Mission hel_lan = new Mission(25, helena, losAngeles, 8);
+	public Mission dul_hou = new Mission(26, duluth, houston, 8);
+	public Mission chi_nor = new Mission(27, chicaco, newOrleans, 7);
+	public Mission cal_slc = new Mission(28, calgary, saltLakeCity, 7);
+	public Mission nyo_atl = new Mission(29, newYork, atlanta, 6);
+	public Mission kcy_hou = new Mission(30, kansasCity, houston, 5);
+	public Mission den_elp = new Mission(31, denver, elPaso, 4);
 
 	private Set<Mission> missions;
 
@@ -159,112 +159,112 @@ public class Usa {
 
 		missions = Mission.ALL;
 
-		new Road(vancouver, calgary, RoadScore.THREE, Color.GRAY);
-		new Road(vancouver, seattle, RoadScore.ONE, Color.GRAY, Color.GRAY);
+		new Road(1, vancouver, calgary, RoadScore.THREE, Color.GRAY);
+		new Road(2, vancouver, seattle, RoadScore.ONE, Color.GRAY, Color.GRAY);
 
-		new Road(seattle, portLand, RoadScore.ONE, Color.GRAY);
-		new Road(seattle, helena, RoadScore.SIX, Color.YELLOW);
+		new Road(3, seattle, portLand, RoadScore.ONE, Color.GRAY);
+		new Road(4, seattle, helena, RoadScore.SIX, Color.YELLOW);
 
-		new Road(calgary, helena, RoadScore.FOUR, Color.GRAY);
-		new Road(calgary, winnipeg, RoadScore.SIX, Color.WHITE);
+		new Road(5, calgary, helena, RoadScore.FOUR, Color.GRAY);
+		new Road(6, calgary, winnipeg, RoadScore.SIX, Color.WHITE);
 
-		new Road(helena, saltLakeCity, RoadScore.THREE, Color.PINK);
-		new Road(helena, denver, RoadScore.FOUR, Color.GREEN);
-		new Road(helena, omaha, RoadScore.FIVE, Color.RED);
-		new Road(helena, duluth, RoadScore.SIX, Color.ORANGE);
-		new Road(helena, winnipeg, RoadScore.FOUR, Color.BLUE);
+		new Road(7, helena, saltLakeCity, RoadScore.THREE, Color.PINK);
+		new Road(8, helena, denver, RoadScore.FOUR, Color.GREEN);
+		new Road(9, helena, omaha, RoadScore.FIVE, Color.RED);
+		new Road(10, helena, duluth, RoadScore.SIX, Color.ORANGE);
+		new Road(11, helena, winnipeg, RoadScore.FOUR, Color.BLUE);
 
-		new Road(saltLakeCity, denver, RoadScore.THREE, Color.RED, Color.YELLOW);
-		new Road(saltLakeCity, lasVegas, RoadScore.THREE, Color.ORANGE);
+		new Road(12, saltLakeCity, denver, RoadScore.THREE, Color.RED, Color.YELLOW);
+		new Road(13, saltLakeCity, lasVegas, RoadScore.THREE, Color.ORANGE);
 
-		new Road(denver, omaha, RoadScore.FOUR, Color.PINK);
-		new Road(denver, kansasCity, RoadScore.FOUR, Color.BLACK, Color.ORANGE);
-		new Road(denver, phoenix, RoadScore.FIVE, Color.WHITE);
-		new Road(denver, santaFe, RoadScore.TWO, Color.GRAY);
-		new Road(denver, oklahomaCity, RoadScore.FOUR, Color.RED);
+		new Road(14, denver, omaha, RoadScore.FOUR, Color.PINK);
+		new Road(15, denver, kansasCity, RoadScore.FOUR, Color.BLACK, Color.ORANGE);
+		new Road(16, denver, phoenix, RoadScore.FIVE, Color.WHITE);
+		new Road(17, denver, santaFe, RoadScore.TWO, Color.GRAY);
+		new Road(18, denver, oklahomaCity, RoadScore.FOUR, Color.RED);
 
-		new Road(portLand, saltLakeCity, RoadScore.SIX, Color.BLUE);
-		new Road(portLand, sanFrancisco, RoadScore.FIVE, Color.GREEN, Color.PINK);
+		new Road(19, portLand, saltLakeCity, RoadScore.SIX, Color.BLUE);
+		new Road(20, portLand, sanFrancisco, RoadScore.FIVE, Color.GREEN, Color.PINK);
 
-		new Road(winnipeg, duluth, RoadScore.FOUR, Color.BLACK);
-		new Road(winnipeg, saultStMarie, RoadScore.SIX, Color.GRAY);
+		new Road(21, winnipeg, duluth, RoadScore.FOUR, Color.BLACK);
+		new Road(22, winnipeg, saultStMarie, RoadScore.SIX, Color.GRAY);
 
-		new Road(duluth, omaha, RoadScore.TWO, Color.GRAY, Color.GRAY);
-		new Road(duluth, saultStMarie, RoadScore.THREE, Color.GRAY);
-		new Road(duluth, toronto, RoadScore.SIX, Color.PINK);
-		new Road(duluth, chicaco, RoadScore.THREE, Color.RED);
+		new Road(23, duluth, omaha, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(24, duluth, saultStMarie, RoadScore.THREE, Color.GRAY);
+		new Road(25, duluth, toronto, RoadScore.SIX, Color.PINK);
+		new Road(26, duluth, chicaco, RoadScore.THREE, Color.RED);
 
-		new Road(omaha, kansasCity, RoadScore.ONE, Color.GRAY, Color.GRAY);
-		new Road(omaha, chicaco, RoadScore.FOUR, Color.BLUE);
+		new Road(27, omaha, kansasCity, RoadScore.ONE, Color.GRAY, Color.GRAY);
+		new Road(28, omaha, chicaco, RoadScore.FOUR, Color.BLUE);
 
-		new Road(lasVegas, sanFrancisco, RoadScore.TWO, Color.ORANGE);
+		new Road(28, lasVegas, sanFrancisco, RoadScore.TWO, Color.ORANGE);
 
-		new Road(saultStMarie, montreal, RoadScore.FIVE, Color.BLACK);
-		new Road(saultStMarie, toronto, RoadScore.TWO, Color.GRAY);
+		new Road(29, saultStMarie, montreal, RoadScore.FIVE, Color.BLACK);
+		new Road(30, saultStMarie, toronto, RoadScore.TWO, Color.GRAY);
 
-		new Road(montreal, toronto, RoadScore.THREE, Color.GRAY);
-		new Road(montreal, newYork, RoadScore.THREE, Color.BLUE);
-		new Road(montreal, boston, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(31, montreal, toronto, RoadScore.THREE, Color.GRAY);
+		new Road(32, montreal, newYork, RoadScore.THREE, Color.BLUE);
+		new Road(33, montreal, boston, RoadScore.TWO, Color.GRAY, Color.GRAY);
 
-		new Road(boston, newYork, RoadScore.TWO, Color.YELLOW, Color.RED);
+		new Road(34, boston, newYork, RoadScore.TWO, Color.YELLOW, Color.RED);
 
-		new Road(toronto, pitsburg, RoadScore.TWO, Color.GRAY);
+		new Road(35, toronto, pitsburg, RoadScore.TWO, Color.GRAY);
 
-		new Road(sanFrancisco, losAngeles, RoadScore.THREE, Color.YELLOW, Color.PINK);
+		new Road(36, sanFrancisco, losAngeles, RoadScore.THREE, Color.YELLOW, Color.PINK);
 
-		new Road(pitsburg, newYork, RoadScore.TWO, Color.WHITE, Color.GREEN);
-		new Road(pitsburg, chicaco, RoadScore.THREE, Color.BLACK, Color.ORANGE);
-		new Road(pitsburg, washington, RoadScore.TWO, Color.GRAY);
-		new Road(pitsburg, nashVille, RoadScore.FOUR, Color.YELLOW);
-		new Road(pitsburg, saintLouis, RoadScore.FIVE, Color.GREEN);
+		new Road(37, pitsburg, newYork, RoadScore.TWO, Color.WHITE, Color.GREEN);
+		new Road(38, pitsburg, chicaco, RoadScore.THREE, Color.BLACK, Color.ORANGE);
+		new Road(39, pitsburg, washington, RoadScore.TWO, Color.GRAY);
+		new Road(40, pitsburg, nashVille, RoadScore.FOUR, Color.YELLOW);
+		new Road(41, pitsburg, saintLouis, RoadScore.FIVE, Color.GREEN);
 
-		new Road(dallas, houston, RoadScore.ONE, Color.GRAY, Color.GRAY);
-		new Road(dallas, littleRock, RoadScore.TWO, Color.GRAY);
+		new Road(42, dallas, houston, RoadScore.ONE, Color.GRAY, Color.GRAY);
+		new Road(43, dallas, littleRock, RoadScore.TWO, Color.GRAY);
 
-		new Road(elPaso, houston, RoadScore.SIX, Color.GREEN);
-		new Road(elPaso, dallas, RoadScore.FOUR, Color.RED);
+		new Road(44, elPaso, houston, RoadScore.SIX, Color.GREEN);
+		new Road(45, elPaso, dallas, RoadScore.FOUR, Color.RED);
 
-		new Road(losAngeles, phoenix, RoadScore.THREE, Color.GRAY);
-		new Road(losAngeles, elPaso, RoadScore.SIX, Color.BLACK);
+		new Road(46, losAngeles, phoenix, RoadScore.THREE, Color.GRAY);
+		new Road(47, losAngeles, elPaso, RoadScore.SIX, Color.BLACK);
 
-		new Road(phoenix, elPaso, RoadScore.THREE, Color.GRAY);
-		new Road(phoenix, santaFe, RoadScore.THREE, Color.GRAY);
+		new Road(48, phoenix, elPaso, RoadScore.THREE, Color.GRAY);
+		new Road(49, phoenix, santaFe, RoadScore.THREE, Color.GRAY);
 
-		new Road(santaFe, elPaso, RoadScore.TWO, Color.GRAY);
-		new Road(santaFe, oklahomaCity, RoadScore.THREE, Color.BLUE);
+		new Road(50, santaFe, elPaso, RoadScore.TWO, Color.GRAY);
+		new Road(51, santaFe, oklahomaCity, RoadScore.THREE, Color.BLUE);
 
-		new Road(kansasCity, oklahomaCity, RoadScore.TWO, Color.GRAY, Color.GRAY);
-		new Road(kansasCity, saintLouis, RoadScore.TWO, Color.BLUE, Color.PINK);
+		new Road(52, kansasCity, oklahomaCity, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(53, kansasCity, saintLouis, RoadScore.TWO, Color.BLUE, Color.PINK);
 
-		new Road(oklahomaCity, dallas, RoadScore.TWO, Color.GRAY, Color.GRAY);
-		new Road(oklahomaCity, elPaso, RoadScore.FIVE, Color.YELLOW);
-		new Road(oklahomaCity, littleRock, RoadScore.TWO, Color.GRAY);
+		new Road(54, oklahomaCity, dallas, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(55, oklahomaCity, elPaso, RoadScore.FIVE, Color.YELLOW);
+		new Road(56, oklahomaCity, littleRock, RoadScore.TWO, Color.GRAY);
 
-		new Road(newYork, washington, RoadScore.TWO, Color.BLACK); // XXX
+		new Road(57, newYork, washington, RoadScore.TWO, Color.BLACK); // XXX
 
-		new Road(chicaco, saintLouis, RoadScore.TWO, Color.GREEN, Color.WHITE);
+		new Road(58, chicaco, saintLouis, RoadScore.TWO, Color.GREEN, Color.WHITE);
 
-		new Road(houston, newOrleans, RoadScore.TWO, Color.GRAY);
+		new Road(59, houston, newOrleans, RoadScore.TWO, Color.GRAY);
 
-		new Road(littleRock, saintLouis, RoadScore.TWO, Color.GRAY);
-		new Road(littleRock, newOrleans, RoadScore.THREE, Color.GREEN);
-		new Road(littleRock, nashVille, RoadScore.THREE, Color.WHITE);
+		new Road(60, littleRock, saintLouis, RoadScore.TWO, Color.GRAY);
+		new Road(61, littleRock, newOrleans, RoadScore.THREE, Color.GREEN);
+		new Road(62, littleRock, nashVille, RoadScore.THREE, Color.WHITE);
 
-		new Road(newOrleans, miami, RoadScore.SIX, Color.RED);
-		new Road(newOrleans, atlanta, RoadScore.FOUR, Color.YELLOW, Color.ORANGE);
+		new Road(63, newOrleans, miami, RoadScore.SIX, Color.RED);
+		new Road(64, newOrleans, atlanta, RoadScore.FOUR, Color.YELLOW, Color.ORANGE);
 
-		new Road(nashVille, atlanta, RoadScore.ONE, Color.GRAY);
-		new Road(nashVille, raleign, RoadScore.THREE, Color.BLACK);
+		new Road(65, nashVille, atlanta, RoadScore.ONE, Color.GRAY);
+		new Road(66, nashVille, raleign, RoadScore.THREE, Color.BLACK);
 
-		new Road(washington, raleign, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(67, washington, raleign, RoadScore.TWO, Color.GRAY, Color.GRAY);
 
-		new Road(raleign, atlanta, RoadScore.TWO, Color.GRAY, Color.GRAY);
-		new Road(raleign, charleston, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(68, raleign, atlanta, RoadScore.TWO, Color.GRAY, Color.GRAY);
+		new Road(69, raleign, charleston, RoadScore.TWO, Color.GRAY, Color.GRAY);
 
-		new Road(atlanta, miami, RoadScore.FIVE, Color.BLUE);
-		new Road(atlanta, charleston, RoadScore.TWO, Color.GRAY);
+		new Road(70, atlanta, miami, RoadScore.FIVE, Color.BLUE);
+		new Road(71, atlanta, charleston, RoadScore.TWO, Color.GRAY);
 
-		new Road(charleston, miami, RoadScore.FOUR, Color.PINK);
+		new Road(72, charleston, miami, RoadScore.FOUR, Color.PINK);
 
 	}
 

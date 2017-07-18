@@ -1,14 +1,18 @@
 package train.model;
 
+import train.map.Usa;
+
 public class Road implements Comparable<Road> {
 
 	private final City from;
 	private final City to;
 	private final Color[] colors;
 	private final RoadScore score;
+	private final int id;
 
-	public Road(City from, City to, RoadScore score, Color... colors) {
+	public Road(int id, City from, City to, RoadScore score, Color... colors) {
 		super();
+		this.id = id;
 		this.from = from;
 		this.to = to;
 		this.colors = colors;
@@ -34,6 +38,10 @@ public class Road implements Comparable<Road> {
 			return to;
 		}
 		return this.from;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	@Override
@@ -65,6 +73,45 @@ public class Road implements Comparable<Road> {
 
 	public boolean isLenght(int lenght) {
 		return score.lenght == lenght;
+	}
+
+	public static Road parseRoad(String road, Usa usa) {
+		if (road.length() != 7) {
+			throw new IllegalArgumentException("Uknown " + road);
+		}
+		String[] citiesString = road.split("-");
+		if (citiesString.length != 2) {
+			throw new IllegalArgumentException("Uknown " + road);
+		}
+		City from = usa.getCity(citiesString[0]);
+		City to = usa.getCity(citiesString[1]);
+		for (Road r : usa.getRoads()) {
+			if (r.from.equals(from) && r.to.equals(to)) {
+				return r;
+			}
+			if (r.from.equals(to) && r.to.equals(from)) {
+				return r;
+			}
+		}
+		throw new IllegalArgumentException("Uknown " + road);
+	}
+
+	public static String lookLikeRoad(String road, Usa usa) {
+		StringBuffer buffer = new StringBuffer();
+		String[] citiesString = road.split("-");
+		City from = usa.getCity(citiesString[0]);
+		City to = usa.getCity(citiesString[1]);
+		for (Road r : usa.getRoads()) {
+			if (r.from.equals(from) || r.from.equals(to) || r.to.equals(from) || r.to.equals(to)) {
+				buffer.append(r.prettyPrint() + "  ");
+			}
+		}
+		return buffer.toString();
+
+	}
+
+	private String prettyPrint() {
+		return from.getId() + "-" + to.getId();
 	}
 
 }

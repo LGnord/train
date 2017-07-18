@@ -12,7 +12,7 @@ public class Mission {
 	final City to;
 	final int points;
 
-	public Mission(City from, City to, int points) {
+	public Mission(int id, City from, City to, int points) {
 		this.from = from;
 		this.to = to;
 		this.points = points;

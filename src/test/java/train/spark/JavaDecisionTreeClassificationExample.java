@@ -8,8 +8,6 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.mllib.linalg.Vector;
-import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.tree.DecisionTree;
 import org.apache.spark.mllib.tree.model.DecisionTreeModel;
@@ -18,6 +16,12 @@ import org.apache.spark.mllib.util.MLUtils;
 import scala.Tuple2;
 //$example off$
 
+// format du fichier
+// classe = mission la plus chère
+// 1-10:  mes premiers coups dans l'ordre
+// 11-20: ses premiers coups dans l'ordre 
+// 20-30: nb de cartes connues piochiées: (20) GRAY, (21) YELLOW, (22) BLUE,  (23) BLACK, (24) ORANGE, 
+//                                        (25) RED,  (26) PINK,   (27) GREEN, (28) WHITE, (29) JOCKER
 class JavaDecisionTreeClassificationExample {
 
 	public static void main(String[] args) {
@@ -29,7 +33,7 @@ class JavaDecisionTreeClassificationExample {
 		JavaSparkContext jsc = new JavaSparkContext(sparkConf);
 
 		// Load and parse the data file.
-		String datapath = "data/mllib/sample_libsvm_data.txt";
+		String datapath = "data/train/parties.txt";
 		JavaRDD<LabeledPoint> data = MLUtils.loadLibSVMFile(jsc.sc(), datapath).toJavaRDD();
 		// Split the data into training and test sets (30% held out for testing)
 		JavaRDD<LabeledPoint>[] splits = data.randomSplit(new double[] { 0.7, 0.3 });
@@ -38,7 +42,7 @@ class JavaDecisionTreeClassificationExample {
 
 		// Set parameters.
 		// Empty categoricalFeaturesInfo indicates all features are continuous.
-		int numClasses = 3;
+		int numClasses = 30;
 		Map<Integer, Integer> categoricalFeaturesInfo = new HashMap<>();
 		String impurity = "gini";
 		int maxDepth = 5;
@@ -64,8 +68,9 @@ class JavaDecisionTreeClassificationExample {
 		}
 		// DecisionTreeModel sameModel = DecisionTreeModel.load(jsc.sc(),
 		// "target/tmp/myDecisionTreeClassificationModel");
-		Vector features = Vectors.sparse(435, new int[] { 0, 2 }, new double[] { 1.0, 3.0 });
+		// Vector features = Vectors.sparse(435, new int[] { 0, 2 }, new
+		// double[] { 1.0, 3.0 });
 
-		System.out.println("+Predict: " + model.predict(features));
+		// System.out.println("+Predict: " + model.predict(features));
 	}
 }
