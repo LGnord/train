@@ -13,12 +13,13 @@ class Player {
 	static final int[][][] NEIGHBOUR = { { { 1, 1 }, { 0, 1 }, { -1, 0 }, { -1, -1 }, { -1, 0 }, { 0, 1 } }, //
 			{ { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, 0 }, { 0, 1 }, { 1, 1 } } };
 
-	static int goalX = 0;
-	static int goalY = 0;
+	static int[][] goal = { { 0, 0 }, { 0, 0 }, { 0, 0 } };
 
-	// devant, milieu, arrière
-	static int[][] myShip = { { 0, 0 }, { 0, 0 }, { 0, 0 } };
-	static int[][] enemiesShip = { { 0, 0 }, { 0, 0 }, { 0, 0 } };
+	// bateau id -> devant, milieu, arrière -> {x,y}
+	static int[][][] myShip = { { { 0, 0 }, { 0, 0 }, { 0, 0 } }, { { 0, 0 }, { 0, 0 }, { 0, 0 } },
+			{ { 0, 0 }, { 0, 0 }, { 0, 0 } } };
+	static int[][][] enemiesShip = { { { 0, 0 }, { 0, 0 }, { 0, 0 } }, { { 0, 0 }, { 0, 0 }, { 0, 0 } },
+			{ { 0, 0 }, { 0, 0 }, { 0, 0 } } };
 	static int[][] myShipMoved = { { 0, 0 }, { 0, 0 }, { 0, 0 } };
 	static int mySpeed = 0;
 	static int myOrientation = 0;
@@ -39,117 +40,144 @@ class Player {
 	}
 
 	static String play(InputStream is) {
-		currentMoveId++;
-		Scanner in = new Scanner(is);
-
-		dangerNum = 0;
-		long minDist = 10_000;
-
 		StringBuffer buffer = new StringBuffer();
+		try {
+			currentMoveId++;
+			Scanner in = new Scanner(is);
 
-		int myShipCount = in.nextInt();
-		append(buffer, myShipCount);
-		int entityCount = in.nextInt();
-		append(buffer, entityCount);
+			dangerNum = 0;
+			long minDist = 10_000;
 
-		for (int i = 0; i < entityCount; i++) {
-			int entityId = in.nextInt();
-			String entityType = in.next();
-			int x = in.nextInt();
-			int y = in.nextInt();
-			int arg1 = in.nextInt();
-			int arg2 = in.nextInt();
-			int arg3 = in.nextInt();
-			int arg4 = in.nextInt();
-			append(buffer, entityId, entityType, x, y, arg1, arg2, arg3, arg4);
+			int myShipCount = in.nextInt();
+			append(buffer, myShipCount);
+			int entityCount = in.nextInt();
+			append(buffer, entityCount);
 
-			if ("SHIP".equals(entityType)) {
-				if (arg4 == 1) {
-					myOrientation = arg1;
-					mySpeed = arg2;
-					myShip[1][0] = x;
-					myShip[1][1] = y;
-					myShip[0][0] = x + NEIGHBOUR[x % 2][myOrientation][0];
-					myShip[0][1] = y + NEIGHBOUR[x % 2][myOrientation][1];
-					myShip[2][0] = x - NEIGHBOUR[x % 2][myOrientation][0];
-					myShip[2][1] = y - NEIGHBOUR[x % 2][myOrientation][1];
+			int myShipId = 0;
+			int enemiesShipId = 0;
+			for (int i = 0; i < entityCount; i++) {
+				int entityId = in.nextInt();
+				String entityType = in.next();
+				int x = in.nextInt();
+				int y = in.nextInt();
+				int arg1 = in.nextInt();
+				int arg2 = in.nextInt();
+				int arg3 = in.nextInt();
+				int arg4 = in.nextInt();
+				append(buffer, entityId, entityType, x, y, arg1, arg2, arg3, arg4);
+
+				if ("SHIP".equals(entityType)) {
+					if (arg4 == 1) {
+						myOrientation = arg1;
+						mySpeed = arg2;
+						myShip[myShipId][1][0] = x;
+						myShip[myShipId][1][1] = y;
+						myShip[myShipId][0][0] = x + NEIGHBOUR[x % 2][myOrientation][0];
+						myShip[myShipId][0][1] = y + NEIGHBOUR[x % 2][myOrientation][1];
+						myShip[myShipId][2][0] = x - NEIGHBOUR[x % 2][myOrientation][0];
+						myShip[myShipId][2][1] = y - NEIGHBOUR[x % 2][myOrientation][1];
+						myShipId++;
+					} else {
+						int enemiesOrientation = arg1;
+						enemiesShip[enemiesShipId][1][0] = x;
+						enemiesShip[enemiesShipId][1][1] = y;
+						enemiesShip[enemiesShipId][0][0] = x + NEIGHBOUR[x % 2][enemiesOrientation][0];
+						enemiesShip[enemiesShipId][0][1] = y + NEIGHBOUR[x % 2][enemiesOrientation][1];
+						enemiesShip[enemiesShipId][2][0] = x - NEIGHBOUR[x % 2][enemiesOrientation][0];
+						enemiesShip[enemiesShipId][2][1] = y - NEIGHBOUR[x % 2][enemiesOrientation][1];
+						enemiesShipId++;
+					}
+				}
+
+				if ("MINE".equals(entityType)) {
+					dangers[dangerNum][0] = x;
+					dangers[dangerNum][1] = y;
+					dangerNum++;
+				}
+
+				if ("CANNONBALL".equals(entityType)) {
+					dangers[dangerNum][0] = x;
+					dangers[dangerNum][1] = y;
+					dangerNum++;
+				}
+
+				if ("BARREL".equals(entityType)) {
+					for (int shipId = 0; shipId < myShipCount; shipId++) {
+						int[] xy = new int[] { x, y };
+						long dist = distance(myShip[shipId][1], xy);
+						if (dist < minDist) {
+							goal[shipId] = xy;
+							minDist = dist;
+						}
+					}
+				}
+
+			}
+
+			if (minDist == 10_000) {
+				for (int shipId = 0; shipId < myShipCount; shipId++) {
+					goal[shipId] = enemiesShip[shipId][1];
+				}
+			}
+
+			String res = "";
+
+			for (int shipId = 0; shipId < myShipCount; shipId++) {
+				final String shipRes;
+
+				myShipMoved[2] = myShip[shipId][1];
+				myShipMoved[1] = myShip[shipId][0];
+				myShipMoved[0][0] = myShip[shipId][0][0] + NEIGHBOUR[myShip[shipId][0][0] % 2][myOrientation][0];
+				myShipMoved[0][0] = myShip[shipId][0][1] + NEIGHBOUR[myShip[shipId][0][0] % 2][myOrientation][0];
+
+				boolean isDanger = false;
+				for (int i = 0; i < dangerNum; i++) {
+					for (int[] shipPos : myShipMoved) {
+						if (shipPos[0] == dangers[i][0] && shipPos[1] == dangers[i][1]) {
+							isDanger = true;
+						}
+					}
+				}
+
+				System.err.println("Is :" + buffer);
+				buffer.setLength(0);
+				System.err.println("Enemies ships :" + Arrays.deepToString(enemiesShip));
+				System.err.println("My ships :" + Arrays.deepToString(myShip));
+				System.err.println("My speed :" + mySpeed);
+				System.err.println("My orientation :" + myOrientation);
+				System.err.println("My dangers :" + Arrays.deepToString(dangers));
+				System.err.println("Is danger :" + isDanger);
+				System.err.println("myLastFire, currentMoveId :" + myLastFire + ", " + currentMoveId);
+				System.err.println("\n");
+
+				if (!isDanger) {
+					if (myLastFire + 2 < currentMoveId) {
+						if (distance(myShip[shipId][1], enemiesShip[0][1]) <= 4) {
+							myLastFire = currentMoveId;
+							shipRes = "FIRE " + enemiesShip[0][1][0] + " " + enemiesShip[0][1][1];
+						} else {
+							shipRes = ("MOVE " + goal[shipId][0] + " " + goal[shipId][1]);
+						}
+					} else {
+						shipRes = ("MOVE " + goal[shipId][0] + " " + goal[shipId][1]);
+					}
 				} else {
-					int enemiesOrientation = arg1;
-					enemiesShip[1][0] = x;
-					enemiesShip[1][1] = y;
-					enemiesShip[0][0] = x + NEIGHBOUR[x % 2][enemiesOrientation][0];
-					enemiesShip[0][1] = y + NEIGHBOUR[x % 2][enemiesOrientation][1];
-					enemiesShip[2][0] = x - NEIGHBOUR[x % 2][enemiesOrientation][0];
-					enemiesShip[2][1] = y - NEIGHBOUR[x % 2][enemiesOrientation][1];
+					int newOrientation = (myOrientation + 1) % 6;
+					shipRes = ("MOVE "
+							+ (myShip[shipId][1][0] + 2 * NEIGHBOUR[myShip[shipId][1][0] % 2][newOrientation][0]) + " "
+							+ (myShip[shipId][1][1] + 2 * NEIGHBOUR[myShip[shipId][1][1] % 2][newOrientation][1]));
 				}
+				res += shipRes + (shipId == myShipCount - 1 ? "" : "\n");
 			}
 
-			if ("MINE".equals(entityType)) {
-				dangers[dangerNum][0] = x;
-				dangers[dangerNum][1] = y;
-				dangerNum++;
-			}
-
-			if ("CANNONBALL".equals(entityType)) {
-				dangers[dangerNum][0] = x;
-				dangers[dangerNum][1] = y;
-				dangerNum++;
-			}
-
-			if ("BARREL".equals(entityType)) {
-				long dist = distance(myShip[1], new int[] { x, y });
-				if (dist < minDist) {
-					goalX = x;
-					goalY = y;
-					minDist = dist;
-				}
-			}
-
+			return res;
+		} catch (Exception e) {
+			System.err.println("** Exception **");
+			System.err.println("Is :" + buffer);
+			buffer.setLength(0);
+			System.err.println(e.getMessage());
+			return "MOVE 10 10";
 		}
-
-		if (minDist == 10_000) {
-			System.err.println("No more barrel");
-			goalX = enemiesShip[1][0];
-			goalY = enemiesShip[1][1];
-		}
-
-		myShipMoved[2] = myShip[1];
-		myShipMoved[1] = myShip[0];
-		myShipMoved[0][0] = myShip[0][0] + NEIGHBOUR[myShip[0][0] % 2][myOrientation][0];
-		myShipMoved[0][0] = myShip[0][1] + NEIGHBOUR[myShip[0][0] % 2][myOrientation][0];
-
-		boolean isDanger = false;
-		for (int i = 0; i < dangerNum; i++) {
-			for (int[] shipPos : myShipMoved) {
-				if (shipPos[0] == dangers[i][0] && shipPos[1] == dangers[i][1]) {
-					isDanger = true;
-				}
-			}
-		}
-
-		System.err.println("Is :" + buffer);
-		buffer.setLength(0);
-		System.err.println("My ship :" + Arrays.deepToString(myShip));
-		System.err.println("My speed :" + mySpeed);
-		System.err.println("My orientation :" + myOrientation);
-		System.err.println("My dangers :" + Arrays.deepToString(dangers));
-		System.err.println("Is danger :" + isDanger);
-		System.err.println("myLastFire,currentMoveId :" + myLastFire + "," + currentMoveId);
-		System.err.println("\n");
-
-		String res = "MOVE 0 0";
-
-		for (int i = 0; i < myShipCount; i++) {
-			if (!isDanger) {
-				res = ("MOVE " + goalX + " " + goalY);
-			} else {
-				int newOrientation = (myOrientation + 1) % 6;
-				res = ("MOVE " + (myShip[1][0] + 2 * NEIGHBOUR[myShip[1][0] % 2][newOrientation][0]) + " "
-						+ (myShip[1][1] + 2 * NEIGHBOUR[myShip[1][1] % 2][newOrientation][1]));
-			}
-		}
-
-		return res;
 	}
 
 	private static void append(StringBuffer buffer, Object... values) {
